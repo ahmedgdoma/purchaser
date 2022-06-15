@@ -1,5 +1,6 @@
 composerFile := -f docker/docker-compose.yml
-image := purchaser_php
+php_image := purchaser_php
+frontend_image := purchaser_frontend
 
 
 build:
@@ -12,18 +13,21 @@ down:
 	docker-compose $(composerFile) down
 
 install:
-	docker-compose $(composerFile) exec $(image) bash -c "composer install"
+	docker-compose $(composerFile) exec $(php_image) bash -c "composer install"
 	make migrate
 	make seed
 
 php_bash:
-	docker-compose $(composerFile) exec -u 1000 $(image) bash
+	docker-compose $(composerFile) exec -u 1000 $(php_image) bash
+
+frontend_bash:
+	docker-compose $(composerFile) exec $(frontend_image) bash
 
 migrate:
-	docker-compose $(composerFile) exec -u 1000 $(image) bash -c "php artisan migrate"
+	docker-compose $(composerFile) exec -u 1000 $(php_image) bash -c "php artisan migrate"
 
 seed:
-	docker-compose $(composerFile) exec -u 1000 $(image) bash -c "php artisan db:seed"
+	docker-compose $(composerFile) exec -u 1000 $(php_image) bash -c "php artisan db:seed"
 
 network:
 	docker network create purchaser_network
