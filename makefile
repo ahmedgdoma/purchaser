@@ -43,4 +43,5 @@ init:
 	make build
 	make up
 	make install
+	make up
 
