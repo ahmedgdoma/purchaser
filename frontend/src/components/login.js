@@ -18,7 +18,7 @@ import axios from "axios";
 const theme = createTheme();
 export default function Login() {
     let token = localStorage.getItem('token')
-    const [isLogin, setIsLogin] = useState(token.length > 0);
+    const [isLogin, setIsLogin] = useState(token && token.length > 0);
     const [error, setError] = useState(null);
     const handleSubmit = (event) => {
         event.preventDefault();

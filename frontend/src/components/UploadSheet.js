@@ -8,17 +8,17 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {useState} from "react";
 import {
     Navigate
 } from "react-router-dom";
 import {postMultiPart} from "../services/api";
 import axios from "axios";
+import {useState} from "react";
 
 const theme = createTheme();
 export default function UploadSheet() {
     let token = localStorage.getItem('token')
-    const [isLogin, setIsLogin] = useState(token.length > 0);
+    const [isLogin, setIsLogin] = useState(token && token.length > 0);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
     const handleSubmit = (event) => {
